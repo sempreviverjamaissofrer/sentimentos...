@@ -14,11 +14,25 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.95);
     z-index: 1000;
+    transition: display 0.3s ease-in-out;
+
 }
 
 .menu.active {
     display: block;
+    animation: fadeIn 0.5s ease-in-out;
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
 
 .menu ul {
     list-style: none;
@@ -50,6 +64,7 @@ body {
     display: inline-block;
     cursor: pointer;
     z-index: 1100;
+    transition: transform 0.3s;
 }
 
 .menu-toggle span {
@@ -59,11 +74,12 @@ body {
     background-color: white;
     margin: 6px 0;
     transition: 0.4s;
+
 }
 
 header {
     background-color: #333;
-    padding: 40px;
+    padding: 1px;
     text-align: center;
     position: relative;
 }

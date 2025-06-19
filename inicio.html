@@ -11,6 +11,11 @@
 
 <body>
     <header>
+
+        <div class="titulo">
+            <h1>Inicio de tudo...</h1>
+        </div>
+
         <div class="menu-toggle" onclick="toggleMenu()">
             <span></span>
             <span></span>
@@ -25,6 +30,7 @@
                 <li><a href="tetris.html">Reconstrua...</a></li>
                 <li><a href="conjunto.html">ME DEIXE!!!!</a></li>
                 <li><a href="eunaosoulouco.html">Eu não sou louco...</a></li>
+                <li><a href="censura.html">Cala a boca!</a></li>
             </ul>
         </nav>
     </header>
@@ -92,18 +98,6 @@
             const menu = document.getElementById('menu');
             menu.classList.toggle('active');
         });
-
-        // Função para fechar o menu ao clicar fora dele
-        document.addEventListener('click', function (event) {
-            const menu = document.getElementById('menu');
-            const menuToggle = document.querySelector('.menu-toggle');
-
-            if (!menu.contains(event.target) && !menuToggle.contains(event.target)) {
-                menu.classList.remove('active');
-            }
-        });
-
-
     </script>
 </body>
 
