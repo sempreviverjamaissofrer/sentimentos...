@@ -1,6 +1,6 @@
 body {
-    background-color: pink;
-    color: red;
+    background-color: blue;
+    color: aqua;
     font-family: 'Comic Sans MS', cursive, sans-serif;
     text-align: center;
 }
@@ -10,11 +10,12 @@ header {
     top: 0;
     left: 0;
     padding: 10px;
+    text-decoration: none;
     text-align: left;
 }
 
 header a {
-    color: blue;
+    color: pink;
     text-decoration: none;
 }
 
@@ -34,21 +35,21 @@ header nav li {
 }
 
 button {
-    background-color: #ff00ff;
-    color: #8E44AD;
+    background-color: #00ffff;
+    color: #0000ff;
     border: none;
-    padding: 20px 40px; /* Aumenta o tamanho do botão */
-    font-size: 24px;     /* Aumenta o tamanho do texto */
+    padding: 20px 40px;
+    font-size: 24px;     
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     font-family: 'Comic Sans MS', cursive, sans-serif;
     margin: 10px;
-    border-radius: 12px; /* Deixa mais bonito e arredondado */
+    border-radius: 12px; 
 }
 
 button:hover {
-    background-color: #8E44AD;
-    color: #ff00ff;
+    background-color: #0000ff;
+    color: #00ffff;
 }
 
 footer {
@@ -56,5 +57,5 @@ footer {
     width: 100%;
     text-align: center;
     padding: 10px;
-    color: #8E44AD;
+    color: aqua;
 }
