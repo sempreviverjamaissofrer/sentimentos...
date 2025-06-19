@@ -11,15 +11,20 @@
 
 <body>
     <header>
-        <nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="menu" id="menu">
             <ul>
                 <li><a href="inicio.html">Vazio</a></li>
                 <li><a href="amor.html">Amor</a></li>
                 <li><a href="diversao.html">Diversão</a></li>
                 <li><a href="socorro.html">S.O.S</a></li>
                 <li><a href="tetris.html">Reconstrua...</a></li>
-                <p>
                 <li><a href="conjunto.html">ME DEIXE!!!!</a></li>
+                <li><a href="eunaosoulouco.html">Eu não sou louco...</a></li>
             </ul>
         </nav>
     </header>
@@ -39,6 +44,67 @@
     <footer>
         <a>&copy Criado por Anonimo...</a>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menu = document.getElementById('menu');
+
+            menuToggle.addEventListener('click', function () {
+                menu.classList.toggle('active');
+            });
+        });
+
+        window.addEventListener('resize', function () {
+            const menu = document.getElementById('menu');
+            if (window.innerWidth > 768) {
+                menu.classList.remove('active');
+            }
+        });
+
+        // Função para exibir o menu ao clicar no botão
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('active');
+        }
+
+        // Função para fechar o menu ao clicar fora dele
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('menu');
+            const menuToggle = document.querySelector('.menu-toggle');
+
+            if (!menu.contains(event.target) && !menuToggle.contains(event.target)) {
+                menu.classList.remove('active');
+            }
+        });
+        // Função para fechar o menu ao clicar em um link
+        const menuLinks = document.querySelectorAll('.menu a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                const menu = document.getElementById('menu');
+                menu.classList.remove('active');
+            });
+        });
+
+        // Função para fechar o menu ao clicar no botão de menu
+        const menuToggle = document.querySelector('.menu-toggle');
+        menuToggle.addEventListener('click', function () {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('active');
+        });
+
+        // Função para fechar o menu ao clicar fora dele
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('menu');
+            const menuToggle = document.querySelector('.menu-toggle');
+
+            if (!menu.contains(event.target) && !menuToggle.contains(event.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
+
+    </script>
 </body>
 
 </html>
