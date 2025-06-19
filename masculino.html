@@ -63,6 +63,8 @@
 
     <button class="voltar">voltar</button>
 
+    <button class="Supresa">Surpresa!</button>
+    
     <footer>
         <a>&copy Criado por Anonimo...</a>
     </footer>
@@ -124,6 +126,36 @@
             Sim.style.display = 'none';
             Nao.style.display = 'none';
             voltar.style.display = 'none';
+        });
+
+                // Ao apertar o botão surpresa chover emojis de coração de tamanhos aleatorios em posições aleatórias
+        // Tera efeito de chuva com os corações aparecendo no topo e caindo pela pagina inteira
+        const Supresa = document.querySelector('.Supresa');
+        Supresa.addEventListener('click', () => {
+            for (let i = 0; i < 100; i++) {
+                const heart = document.createElement('span');
+                heart.textContent = '❤️', '💖', '💘', '💝', '💕', '💞', '💓', '💗', '💟'[Math.floor(Math.random() * 9)];
+                heart.style.position = 'absolute';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.top = Math.random() * window.innerHeight + 'px';
+                heart.style.fontSize = Math.random() * 50 + 10 + 'px';
+                document.body.appendChild(heart);
+
+                // Animação de queda
+                heart.animate([
+                    { transform: 'translateY(0)' },
+                    { transform: `translateY(${window.innerHeight}px)` }
+                ], {
+                    duration: Math.random() * 2000 + 1000,
+                    easing: 'linear',
+                    fill: 'forwards'
+                });
+
+                // Remover o coração após a animação
+                setTimeout(() => {
+                    heart.remove();
+                }, 3000);
+            }
         });
     </script>
 </body>

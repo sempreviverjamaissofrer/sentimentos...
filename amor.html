@@ -49,7 +49,7 @@
         <div class="fase2">
             <p>Entendo... isso pode me afetar um pouco... medo... mas... </p>
             <p>AAAAAAAAAAAAAAA tu tem certeza?????</p>
-''            <button class="BSim2">Sim</button>
+            '' <button class="BSim2">Sim</button>
             <button class="BNao2">Não</button>
         </div>
 
@@ -64,6 +64,8 @@
     </div>
 
     <button class="voltar">voltar</button>
+
+    <button class="Supresa">Supresa</button>
 
     <footer>
         <a>&copy Criado por Anonimo...</a>
@@ -87,7 +89,7 @@
         // toda vez que clicar sim manda a proxima fase
         // a partir da fase2 Sim levar pra div sim
         // qualquer botão NAO clicado devera levar a div nao
-        
+
         voltar.style.display = 'none';
 
         BSim.addEventListener('click', () => {
@@ -127,6 +129,38 @@
             Nao.style.display = 'none';
             voltar.style.display = 'none';
         });
+
+        // Ao apertar o botão surpresa chover emojis de coração de tamanhos aleatorios em posições aleatórias
+        // Tera efeito de chuva com os corações aparecendo no topo e caindo pela pagina inteira
+        const Supresa = document.querySelector('.Supresa');
+        Supresa.addEventListener('click', () => {
+            for (let i = 0; i < 100; i++) {
+                const heart = document.createElement('span');
+                heart.textContent = '❤️', '💖', '💘', '💝', '💕', '💞', '💓', '💗', '💟'[Math.floor(Math.random() * 9)];
+                heart.style.position = 'absolute';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.top = Math.random() * window.innerHeight + 'px';
+                heart.style.fontSize = Math.random() * 50 + 10 + 'px';
+                document.body.appendChild(heart);
+
+                // Animação de queda
+                heart.animate([
+                    { transform: 'translateY(0)' },
+                    { transform: `translateY(${window.innerHeight}px)` }
+                ], {
+                    duration: Math.random() * 2000 + 1000,
+                    easing: 'linear',
+                    fill: 'forwards'
+                });
+
+                // Remover o coração após a animação
+                setTimeout(() => {
+                    heart.remove();
+                }, 3000);
+            }
+        });
+        // Ao clicar no botão surpresa, a animação de chuva de corações será ativada
+        // Os corações aparecerão em posições e tamanhos aleatórios, caindo pela tela
     </script>
 </body>
 
