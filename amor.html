@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Te amo...</title>
+    <link rel="stylesheet" href="css/amor.css">
+</head>
+
+<body>
+    <div class="titulo">
+        <h1>TE AMO</h1>
+        <p>Eu não sei como dizer, mas eu toda hora penso em você... sem parar... sem parar... e sem parar...</p>
+        <p>Sonho em deitar nos teus braços e poder abraçar a nuvem que eu adoro... amo. amo. amo..</p>
+        <p>Eu tenho tantas palavras que quero poder dizer... amor tudo em você...</p>
+        <p>Seu cabelo... Seu sorriso... Seus olhos... Sua beleza... Deusa linda minha atração...</p>
+        <p>Quero poder ser feliz do seu lado... Pular, sorrir, rir, e viver com você</p>
+        <p>Te amo</p>
+        <p>TE AMO</p>
+        <p>
+        <h3>TE AMO</h3>
+        </p>
+        <p>
+        <h2>TE AMO</h2>
+        </p>
+        <p>
+        <h1><strong>TE AMOOOO ❤️</strong></h1>
+        </p>
+    </div>
+
+    <div class="escolha">
+        <p>Mas... como eu poderia saber da sua vontade?</p>
+        <p>Hm... ja sei!</p>
+
+        <div class="fase1">
+            <p>Você acha que dariamos bem se nos namorar?</p>
+            <button class="BSim">Sim</button>
+            <button class="BNao">Não</button>
+        </div>
+
+        <div class="fase2">
+            <p>Entendo... isso pode me afetar um pouco... medo... mas... </p>
+            <p>AAAAAAAAAAAAAAA tu tem certeza?????</p>
+            <button class="BSim2">Sim</button>
+            <button class="BNao2">Não</button>
+        </div>
+
+        <div class="Sim">
+            <p>AAAAAAAAAAAAAA 😭 eu to sem reação... EU TE AMOOOOOO!!!!!!!</p>
+        </div>
+
+        <div class="Nao">
+            <p> Tudo bem... Cada um tem suas escolhas, não posso forçar algo que nao queria</p>
+            <p> Mas saiba que eu te amo!</p>
+        </div>
+    </div>
+
+    <button class="voltar">voltar</button>
+
+    <script>
+        const fase1 = document.querySelector('.fase1');
+        const BSim = document.querySelector('.BSim');
+        const BNao = document.querySelector('.BNao');
+        const fase2 = document.querySelector('.fase2');
+        const BSim2 = document.querySelector('.BSim2');
+        const BNao2 = document.querySelector('.BNao2');
+        const Sim = document.querySelector('.Sim');
+        const Nao = document.querySelector('.Nao');
+        const voltar = document.querySelector('.voltar');
+
+        // toda vez que clicar sim manda a proxima fase
+        // a partir da fase2 Sim levar pra div sim
+        // qualquer botão NAO clicado devera levar a div nao
+        BSim.addEventListener('click', () => {
+            fase1.style.display = 'none';
+            fase2.style.display = 'block';
+        });
+
+        BNao.addEventListener('click', () => {
+            fase1.style.display = 'none';
+            Nao.style.display = 'block';
+        });
+
+        BSim2.addEventListener('click', () => {
+            fase2.style.display = 'none';
+            Sim.style.display = 'block';
+        });
+
+        BNao2.addEventListener('click', () => {
+            fase2.style.display = 'none';
+            Nao.style.display = 'block';
+        });
+
+        // Esconder as fases 2, Sim e Nao inicialmente
+        fase2.style.display = 'none';
+
+        Sim.style.display = 'none';
+        Nao.style.display = 'none';
+
+        // Voltar para a fase 1
+        voltar.addEventListener('click', () => {
+            fase1.style.display = 'block';
+            fase2.style.display = 'none';
+            Sim.style.display = 'none';
+            Nao.style.display = 'none';
+        });
+        // Esconder o botão voltar inicialmente
+        voltar.style.display = 'none';
+
+        // Mostrar o botão voltar quando a fase 2, Sim ou Nao estiverem visíveis
+        const showBackButton = () => {
+            voltar.style.display = 'block';
+        };
+    </script>
+</body>
+
+</html>
