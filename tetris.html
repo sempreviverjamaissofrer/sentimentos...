@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tetris Reforçado</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      margin: 0;
+    }
+
+    h1 {
+      margin: 20px;
+    }
+
+    #game {
+      display: grid;
+      grid-template-columns: repeat(10, 30px);
+      grid-template-rows: repeat(20, 30px);
+      gap: 1px;
+      background: #222;
+    }
+
+    .cell {
+      width: 30px;
+      height: 30px;
+      background: #333;
+      box-sizing: border-box;
+    }
+
+    .filled {
+      background: currentColor;
+    }
+
+    #score {
+      margin: 10px;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tetris... ou reconstrução da mente...</h1>
+  <div id="score">Pontos: pode ate tentar mas estara totalmente quebrado............</div>
+  <div id="game"></div>
+
+  <script>
+    const width = 10;
+    const height = 20;
+    const grid = [];
+    const game = document.getElementById("game");
+    const scoreDisplay = document.getElementById("score");
+    let score = 0;
+
+    // Criar grade
+    for (let i = 0; i < width * height; i++) {
+      const cell = document.createElement("div");
+      cell.classList.add("cell");
+      game.appendChild(cell);
+      grid.push(cell);
+    }
+
+    // Tetrominoes (em matriz 4x4)
+    const tetrominoes = [
+      {
+        name: "I",
+        color: "#0ff",
+        shapes: [
+          [1, 5, 9, 13],
+          [4, 5, 6, 7],
+          [2, 6, 10, 14],
+          [8, 9, 10, 11]
+        ]
+      },
+      {
+        name: "O",
+        color: "#ff0",
+        shapes: [
+          [5, 6, 9, 10],
+          [5, 6, 9, 10],
+          [5, 6, 9, 10],
+          [5, 6, 9, 10]
+        ]
+      },
+      {
+        name: "T",
+        color: "#f0f",
+        shapes: [
+          [1, 4, 5, 6],
+          [1, 5, 6, 9],
+          [4, 5, 6, 9],
+          [1, 4, 5, 9]
+        ]
+      },
+      {
+        name: "S",
+        color: "#0f0",
+        shapes: [
+          [5, 6, 8, 9],
+          [1, 5, 6, 10],
+          [5, 6, 8, 9],
+          [1, 5, 6, 10]
+        ]
+      },
+      {
+        name: "Z",
+        color: "#f00",
+        shapes: [
+          [4, 5, 9, 10],
+          [2, 5, 6, 9],
+          [4, 5, 9, 10],
+          [2, 5, 6, 9]
+        ]
+      },
+      {
+        name: "J",
+        color: "#00f",
+        shapes: [
+          [1, 5, 9, 10],
+          [4, 5, 6, 8],
+          [0, 1, 5, 9],
+          [2, 4, 5, 6]
+        ]
+      },
+      {
+        name: "L",
+        color: "#fa0",
+        shapes: [
+          [1, 5, 9, 8],
+          [4, 5, 6, 10],
+          [2, 1, 5, 9],
+          [0, 4, 5, 6]
+        ]
+      }
+    ];
+
+    let currentPiece;
+    let currentRotation = 0;
+    let currentPosition = 3;
+    let timer = null;
+
+    function draw() {
+      currentPiece.shapes[currentRotation].forEach(index => {
+        const pos = currentPosition + index;
+        if (grid[pos]) {
+          grid[pos].classList.add("filled");
+          grid[pos].style.color = currentPiece.color;
+        }
+      });
+    }
+
+    function undraw() {
+      currentPiece.shapes[currentRotation].forEach(index => {
+        const pos = currentPosition + index;
+        if (grid[pos]) {
+          grid[pos].classList.remove("filled");
+          grid[pos].style.color = "";
+        }
+      });
+    }
+
+    function freeze() {
+      if (checkCollision(1)) {
+        currentPiece.shapes[currentRotation].forEach(index => {
+          const pos = currentPosition + index;
+          if (grid[pos]) {
+            grid[pos].classList.add("frozen");
+          }
+        });
+        checkLines();
+        spawnPiece();
+      }
+    }
+
+    function checkCollision(offset = 0, testRotation = currentRotation, testPos = currentPosition) {
+      return currentPiece.shapes[testRotation].some(index => {
+        const pos = testPos + index + offset * width;
+        return (
+          pos >= width * height ||
+          (grid[pos] && grid[pos].classList.contains("frozen"))
+        );
+      });
+    }
+
+    function moveDown() {
+      if (!checkCollision(1)) {
+        undraw();
+        currentPosition += width;
+        draw();
+      } else {
+        freeze();
+      }
+    }
+
+    function moveLeft() {
+      if (!currentPiece.shapes[currentRotation].some(index => (currentPosition + index) % width === 0)) {
+        const newPos = currentPosition - 1;
+        if (!checkCollision(0, currentRotation, newPos)) {
+          undraw();
+          currentPosition = newPos;
+          draw();
+        }
+      }
+    }
+
+    function moveRight() {
+      if (!currentPiece.shapes[currentRotation].some(index => (currentPosition + index + 1) % width === 0)) {
+        const newPos = currentPosition + 1;
+        if (!checkCollision(0, currentRotation, newPos)) {
+          undraw();
+          currentPosition = newPos;
+          draw();
+        }
+      }
+    }
+
+    function rotate() {
+      const nextRotation = (currentRotation + 1) % 4;
+      if (!checkCollision(0, nextRotation)) {
+        undraw();
+        currentRotation = nextRotation;
+        draw();
+      }
+    }
+
+    function spawnPiece() {
+      const random = Math.floor(Math.random() * tetrominoes.length);
+      currentPiece = tetrominoes[random];
+      currentRotation = 0;
+      currentPosition = 3;
+      if (checkCollision(0)) {
+        clearInterval(timer);
+        alert("Fim de jogo! Pontuação: " + score);
+      } else {
+        draw();
+      }
+    }
+
+    function checkLines() {
+      for (let r = 0; r < height; r++) {
+        const line = [];
+        for (let c = 0; c < width; c++) {
+          line.push(r * width + c);
+        }
+        if (line.every(i => grid[i].classList.contains("frozen"))) {
+          score += 10;
+          scoreDisplay.textContent = "Pontos: " + score;
+
+          line.forEach(i => {
+            grid[i].classList.remove("frozen", "filled");
+            grid[i].style.color = "";
+          });
+
+          const removed = grid.splice(r * width, width);
+          grid.unshift(...removed);
+          grid.forEach(cell => game.appendChild(cell));
+        }
+      }
+    }
+
+    function control(e) {
+      switch (e.key) {
+        case "ArrowLeft":
+          moveLeft();
+          break;
+        case "ArrowRight":
+          moveRight();
+          break;
+        case "ArrowDown":
+          moveDown();
+          break;
+        case "ArrowUp":
+          rotate();
+          break;
+      }
+    }
+
+    document.addEventListener("keydown", control);
+
+    spawnPiece();
+    timer = setInterval(moveDown, 700);
+  </script>
+</body>
+</html>
