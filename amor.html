@@ -73,9 +73,16 @@
         const Nao = document.querySelector('.Nao');
         const voltar = document.querySelector('.voltar');
 
+        const showBackButton = () => {
+            voltar.style.display = 'block';
+        };
+
         // toda vez que clicar sim manda a proxima fase
         // a partir da fase2 Sim levar pra div sim
         // qualquer botão NAO clicado devera levar a div nao
+        
+        voltar.style.display = 'none';
+
         BSim.addEventListener('click', () => {
             fase1.style.display = 'none';
             fase2.style.display = 'block';
@@ -84,16 +91,19 @@
         BNao.addEventListener('click', () => {
             fase1.style.display = 'none';
             Nao.style.display = 'block';
+            showBackButton();
         });
 
         BSim2.addEventListener('click', () => {
             fase2.style.display = 'none';
             Sim.style.display = 'block';
+            showBackButton();
         });
 
         BNao2.addEventListener('click', () => {
             fase2.style.display = 'none';
             Nao.style.display = 'block';
+            showBackButton();
         });
 
         // Esconder as fases 2, Sim e Nao inicialmente
@@ -109,13 +119,6 @@
             Sim.style.display = 'none';
             Nao.style.display = 'none';
         });
-        // Esconder o botão voltar inicialmente
-        voltar.style.display = 'none';
-
-        // Mostrar o botão voltar quando a fase 2, Sim ou Nao estiverem visíveis
-        const showBackButton = () => {
-            voltar.style.display = 'block';
-        };
     </script>
 </body>
 
