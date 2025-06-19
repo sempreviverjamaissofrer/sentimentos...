@@ -13,20 +13,14 @@ header {
     text-align: left;
 }
 
+header nav {
+    text-align: left;
+}
+
 header a {
     color: blue;
     text-decoration: none;
-}
-
-header nav {
-    display: inline-block;
-}
-
-header nav li {
-    justify-content: flex-start;
-    display: inline;
-    margin: 0 15px;
-    text-decoration: none;
+    font-weight: bold;
 }
 
 .titulo {
