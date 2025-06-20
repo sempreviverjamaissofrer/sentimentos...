@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Banana Jumpscare</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      background-color: black;
+    }
+
+    #banana {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 9999;
+    }
+
+    @keyframes piscar {
+      0%, 100% { filter: invert(0); }
+      50% { filter: invert(1); }
+    }
+
+    .piscando {
+      animation: piscar 0.1s infinite;
+    }
+  </style>
+</head>
+<body>
+  <img id="banana" src="img/socorro.png" alt="Banana Jumpscare">
+  
+  <audio id="grito" loop>
+    <source src="img/ultimas palavras.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
+
+  <script>
+    window.onload = function () {
+      const banana = document.getElementById("banana");
+      const grito = document.getElementById("grito");
+
+      // Espera 1 segundo antes de iniciar
+      setTimeout(() => {
+        banana.classList.add("piscando");
+        grito.volume = 1.0;
+        grito.play();
+      }, 200);
+    };
+  </script>
+</body>
+</html>
